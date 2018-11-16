@@ -1,0 +1,201 @@
+/* Общие стили */
+select,
+textarea,
+input[type='text']{
+    width: 100%;
+    display: block;
+}
+
+.metabox-header{
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 25px;
+    padding: 10px 0 5px;
+    line-height: 30px;
+}
+
+
+
+/* Image */
+.image-preview{
+    position: relative;
+    width: 300px;
+    height: 150px;
+    max-width: 100%;
+    background-color: #eee;
+    background-image: url('click-to-add-image.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid #dddddd;
+    cursor: pointer;
+}
+.image-preview .remove{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    background: url("close.svg") center/contain no-repeat;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.image-preview:hover .remove{
+    opacity: 0.6;
+}
+.image-preview .remove:hover{
+    opacity: 1;
+}
+.image-preview.empty .remove{
+    visibility: hidden;
+}
+
+/* AUDIO, PDF */
+input.filename-input{
+    width: calc(100% - 240px);
+    float: left;
+}
+.add-file-btn{
+    width: 230px;
+    float: right;
+}
+.wp-core-ui .button.remove-file-btn{
+    float: right;
+    margin: 0 0 0 5px;
+}
+
+.metabox-item-description{
+    font-weight: 400;
+    font-style: italic;
+}
+
+/** COMBO **/
+.combo li{
+    cursor: move;
+}
+.combo li .combo-item-field-wrap{
+    position: relative;
+    margin: 0 0 10px;
+}
+.combo li .combo-item-field-wrap:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.add-combo-item.button{
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.add-combo-item.button:focus{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #255625;
+}
+.add-combo-item.button:hover{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
+.add-combo-item.button:active{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
+.add-combo-item.button:active:hover{
+    color: #fff;
+    background-color: #398439;
+    border-color: #255625;
+}
+.combo li .remove-combo-item{
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+}
+.combo li .remove-combo-item:focus{
+    color: #fff;
+    background-color: #ec971f;
+    border-color: #985f0d;
+}
+.combo li .remove-combo-item:hover{
+    color: #fff;
+    background-color: #ec971f;
+    border-color: #d58512;
+}
+.combo li .remove-combo-item:active{
+    color: #fff;
+    background-color: #ec971f;
+    border-color: #d58512;
+}
+.combo li .remove-combo-item:active:hover{
+    color: #fff;
+    background-color: #d58512;
+    border-color: #985f0d;
+}
+
+/* combo display => stack */
+.combo.stack li{
+    margin: 0 0 30px;
+    box-sizing: border-box;
+}
+.combo.stack li:nth-of-type(n+2){
+    border-top: 1px solid #A7A7A7;
+    padding: 30px 0 0;
+}
+.combo.stack li .combo-item-field-wrap .combo-item-field-title{
+    width: 20%;
+    float: left;
+    padding: 0 10px 0 0;
+    box-sizing: border-box;
+}
+.combo.stack li .combo-item-field-wrap .combo-item-field-body{
+    width: 80%;
+    float: right;
+}
+.combo.stack li .combo-item-field-wrap .combo-item-field-body:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.combo.stack li .remove-combo-item{
+    display: block;
+    margin: 25px 0 0 auto;
+}
+
+/* combo display => line */
+.combo.line:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.combo.line li{
+    float: left;
+    width: calc(25% - 24px);
+    min-width: 250px;
+    margin: 10px 10px 10px 0;
+    border: 1px solid #dddddd;
+    padding: 8px 0 0;
+}
+.combo.line li .combo-item-field-wrap{
+    padding: 3px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.combo.line li .combo-item-field-wrap .combo-item-field-title{
+    margin: 0 0 5px;
+}
+.combo.line li .combo-item-field-wrap .combo-item-field-body .filename-input{
+    width: 100%;
+    float: none;
+}
+.combo.line li .combo-item-field-wrap .combo-item-field-body .add-file-btn{
+    display: block;
+    margin: 8px auto 5px;
+    float: none;
+}
+.combo.line li .remove-combo-item {
+    display: block;
+    margin: 10px auto;
+}
+
+

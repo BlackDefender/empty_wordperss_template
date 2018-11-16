@@ -1,0 +1,10 @@
+.additional-settings-form table input,
+.additional-settings-form table textarea,
+.additional-settings-form table select{
+    width: 80%;
+    min-width: 200px;
+}
+.additional-settings-form table textarea{
+    min-height: 100px;
+    resize: both;
+}
