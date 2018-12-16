@@ -16,11 +16,11 @@ if($wp->request !== '404'){
 header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
 get_header();
 ?>
-<div id="page-404" class="page">
+<main id="page-404" class="page">
     <div class="block ">
         <div class="content">
             <h1>404</h1>
         </div>
     </div>
-</div>
+</main>
 <?php get_footer(); ?>

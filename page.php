@@ -2,7 +2,7 @@
 get_header();
 the_post();
 ?>
-<div class="page">
+<main class="page">
 	<div class="block some-block">
 		<div class="content">
             <?php
@@ -10,6 +10,6 @@ the_post();
             ?>
 		</div>
 	</div>
-</div>
+</main>
 
 <?php get_footer(); ?>

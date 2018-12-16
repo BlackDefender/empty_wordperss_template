@@ -1,0 +1,21 @@
+{
+  "short_name": "ShortSiteName",
+  "name": "FullSiteName",
+  "icons": [
+    {
+      "src": "/wp-content/themes/THEME_NAME/images/favicons/favicon-196.png",
+      "type": "image/png",
+      "sizes": "196x196"
+    },
+    {
+      "src": "/wp-content/themes/THEME_NAME/images/favicons/favicon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#000000",
+  "display": "minimal-ui",
+  "scope": "/",
+  "theme_color": "#000000"
+}

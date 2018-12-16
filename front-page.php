@@ -3,7 +3,7 @@
 get_header();
 
 ?>
-<div id="front-page" class="page">
+<main id="front-page" class="page">
 	<div class="block some-block">
 		<div class="content">
 		
@@ -17,5 +17,5 @@ get_header();
 		<div class="content">
 		</div>
 	</div>
-</div>
+</main>
 <?php get_footer(); ?>
