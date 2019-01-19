@@ -144,7 +144,12 @@ class Utils
         $nonce_field .= wp_referer_field( false );
         return $nonce_field;
     }
-	
+
+    public static function getCsrfToken()
+    {
+        return wp_create_nonce( self::getNonceActionName() );
+    }
+
 	public static function cyr2lat($string)
 	{
 		$converter = array(

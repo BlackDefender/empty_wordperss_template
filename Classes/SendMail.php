@@ -11,7 +11,6 @@ class SendMail
     public function serveRequest()
     {
         $success = mail($this->notificationEmail(), $this->mailSubject(), $this->mailText(), $this->mailHeaders());
-        var_dump($success);
         if(isset($_POST['ajax'])){
             self::answerJs($success ? 'success' : 'error');
         }else{
@@ -73,6 +72,24 @@ class SendMail
         header($_SERVER['SERVER_PROTOCOL'].' 200 OK');
         echo json_encode(["status" => $status]);
         exit(0);
+    }
+
+    public static function badRequest()
+    {
+        if(isset($_POST['ajax'])){
+            self::answerJs('error');
+        }else{
+            self::redirect();
+        }
+    }
+
+    public static function goodRequest()
+    {
+        if(isset($_POST['ajax'])){
+            self::answerJs('success');
+        }else{
+            self::redirect();
+        }
     }
 
 }

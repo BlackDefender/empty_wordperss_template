@@ -2,17 +2,14 @@ var pageScrollPosition = 0;
 
 function openModal(modal) {
     modal = typeof modal === 'string' ? document.getElementById(modal) : modal;
-    pageScrollPosition = window.scrollY;
-    document.body.parentNode.classList.add('fixed');
-    document.body.scrollTop = pageScrollPosition;
+    pageScrollState.fix();
     modal.classList.add('active');
 }
 
 function closeModal(modal) {
     modal = typeof modal === 'string' ? document.getElementById(modal) : modal;
     modal.classList.remove('active');
-    document.body.parentNode.classList.remove('fixed');
-    window.scrollTo(0, pageScrollPosition);
+    pageScrollState.unfix();
 }
 
 var $modals = $('.modal');

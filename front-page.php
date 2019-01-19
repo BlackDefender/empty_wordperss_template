@@ -1,7 +1,5 @@
 <?php
-
 get_header();
-
 ?>
 <main id="front-page" class="page">
 	<div class="block some-block">

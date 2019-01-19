@@ -1,7 +1,5 @@
 <?php
-
 global $contactsData, $templateUri;
-
 ?>
 <div class="footer-container">
 	<footer>

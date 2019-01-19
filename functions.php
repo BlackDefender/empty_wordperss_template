@@ -8,7 +8,7 @@ require_once 'autoload.php';
 require_once 'functions/post-types.php';
 require_once 'functions/meta-fields-engine.php';
 require_once 'functions/additional-settings.php';
-//require_once 'Classes/Utils.php';
+require_once 'functions/translations.php';
 
 // глобальные переменные
 $templateUri = get_template_directory_uri();
@@ -34,7 +34,6 @@ add_action('wp_head',function() { ob_start(function($o) {
     return preg_replace('/^\n?<!--.*?[Y]oast.*?-->\n?$/mi','',$o);
 }); },~PHP_INT_MAX);
 
-remove_action('wp_head', 'wp_generator');
 
 remove_action('wp_head', 'wp_generator');
 remove_action('wp_head', 'rsd_link');
