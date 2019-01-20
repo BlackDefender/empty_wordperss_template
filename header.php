@@ -17,7 +17,7 @@ global $contactsData, $templateUri;
     <base href="<?= home_url('/'); ?>">
 
     <meta name="theme-color" content="#ffffff"/>
-    <link rel="manifest" href="<?php Utils::getAssetUrlWithTimestamp('manifest.json'); ?>">
+    <link rel="manifest" href="<?= Utils::getAssetUrlWithTimestamp('manifest.json'); ?>">
 	<?php wp_head(); ?>
 </head>
 <body>
