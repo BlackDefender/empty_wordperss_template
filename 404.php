@@ -2,7 +2,9 @@
 
 global $wp;
 
-if($wp->request !== '404'){
+$requestedPage = array_reverse(explode('/', $wp->request))[0];
+
+if($requestedPage !== '404'){
     if(function_exists('pll_home_url')){
         $homeUrl = pll_home_url();
     }else{
