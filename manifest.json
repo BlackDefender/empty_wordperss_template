@@ -1,14 +1,14 @@
 {
-  "short_name": "ShortSiteName",
-  "name": "FullSiteName",
+  "short_name": "SHORT_SITE_NAME",
+  "name": "FULL_SITE_NAME",
   "icons": [
     {
-      "src": "/wp-content/themes/THEME_NAME/images/favicons/favicon-196.png",
+      "src": "/wp-content/themes/THEME_NAME/images/favicons/favicon-196x196.png",
       "type": "image/png",
       "sizes": "196x196"
     },
     {
-      "src": "/wp-content/themes/THEME_NAME/images/favicons/favicon-512.png",
+      "src": "/wp-content/themes/THEME_NAME/images/favicons/favicon-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
