@@ -1,5 +1,3 @@
-var pageScrollPosition = 0;
-
 function openModal(modal) {
     modal = typeof modal === 'string' ? document.getElementById(modal) : modal;
     pageScrollState.fix();
@@ -12,20 +10,20 @@ function closeModal(modal) {
     pageScrollState.unfix();
 }
 
-var $modals = $('.modal');
-
-$modals.click(function () {
-    closeModal(this);
+Array.prototype.slice.call(document.querySelectorAll('.modal')).forEach(function (modal) {
+    modal.addEventListener('click', function () {
+        closeModal(modal);
+    });
+    modal.querySelector('.close-btn').addEventListener('click', function () {
+        closeModal(modal);
+    });
+    modal.querySelector('.window').addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
 });
 
-$modals.find('.close-btn').click(function () {
-    closeModal(this.closest('.modal'));
-});
-
-$modals.find('.window').click(function (e) {
-    e.stopPropagation();
-});
-
-$('.modal-opener').click(function () {
-    openModal(this.dataset.modalId);
+Array.prototype.slice.call(document.querySelectorAll('.modal')).forEach(function (modalOpener) {
+    modalOpener.addEventListener('click', function () {
+        openModal(this.dataset.modalId);
+    });
 });
