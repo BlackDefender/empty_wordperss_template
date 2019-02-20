@@ -18,9 +18,12 @@ $templateUri = get_template_directory_uri();
 $contactsData = get_option('contacts_data');
 
 function enqueue_assets()
-{	
+{
+    if(!is_admin()){
+        wp_deregister_style('bodhi-svgs-attachment');
+    }
     wp_enqueue_style( 'bundle', Utils::getAssetUrlWithTimestamp('/css/bundle.css'), [], null);
-	wp_deregister_script('jquery');
+    wp_deregister_script('jquery');
     wp_deregister_script('wp-embed');
     wp_enqueue_script('bundle', Utils::getAssetUrlWithTimestamp('/js/bundle.js'), [], null, true);
 }
