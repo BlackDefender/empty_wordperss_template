@@ -58,8 +58,13 @@ function querySelectorAsArray(selector) {
     return Array.prototype.slice.call(document.querySelectorAll(selector));
 }
 
-function on(selector, event, callback) {
-    querySelectorAsArray(selector).forEach(function (item) {
+function on(elements, event, callback) {
+    if(typeof elements === 'string'){
+        elements = querySelectorAsArray(elements);
+    }else if(elements instanceof NodeList){
+        elements = Array.prototype.slice.call(elements);
+    }
+    elements.forEach(function (item) {
         item.addEventListener(event, callback);
     });
 }
