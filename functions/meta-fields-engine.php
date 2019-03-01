@@ -128,7 +128,7 @@ function repeaterItemHTML($dataDescription, $metaDataItem, $metaDataItemIndex, $
                                  value='" . $fileUrl . "'
                                  name='{$fieldName}[$metaDataItemIndex][$dataDescriptionItemIndex]'>
                           <input type='text' disabled class='no-index filename-input' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '').">
-                          <button class='button add-audio add-file-btn'>Добавить/изменить аудиозапись</button>";
+                          <button type='button' class='button add-audio add-file-btn'>Добавить/изменить аудиозапись</button>";
                             break;
                         case 'pdf':
                             $fileUrl = getItemByIndex($metaDataItem, $dataDescriptionItemIndex);
@@ -136,7 +136,7 @@ function repeaterItemHTML($dataDescription, $metaDataItem, $metaDataItemIndex, $
                                  value='" . $fileUrl . "'
                                  name='{$fieldName}[$metaDataItemIndex][$dataDescriptionItemIndex]'>
                           <input class='no-index filename-input' type='text' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '')." disabled>
-                          <button class='button add-pdf add-file-btn'>Добавить/изменить PDF</button>";
+                          <button type='button' class='button add-pdf add-file-btn'>Добавить/изменить PDF</button>";
                             break;
 						case 'postsList':
                             $postsList = new WP_Query([
@@ -165,7 +165,7 @@ function repeaterItemHTML($dataDescription, $metaDataItem, $metaDataItemIndex, $
         <?php
         endforeach;
         ?>
-        <button class="button remove-combo-item">Удалить элемент</button>
+        <button type="button" class="button remove-combo-item">Удалить элемент</button>
     </li>
     <?php
 }
@@ -246,7 +246,7 @@ function show_custom_metabox($post, $meta_fields)
                     <input type="hidden" name="<?= $field['id'] ?>" value="<?= $meta ?>">
                     <input type="text" class="filename-input" disabled
                            value="<?= substr($meta, strrpos($meta, '/') + 1) ?>">
-                    <button class="button add-audio add-file-btn">Добавить/изменить аудиозапись</button>
+                    <button type="button" class="button add-audio add-file-btn">Добавить/изменить аудиозапись</button>
                 </div>
                 <?php
                 break;
@@ -256,7 +256,7 @@ function show_custom_metabox($post, $meta_fields)
                     <input type="hidden" name="<?= $field['id'] ?>" value="<?= $meta ?>">
                     <input type="text" class="filename-input" disabled
                            value="<?= substr($meta, strrpos($meta, '/') + 1) ?>">
-                    <button class="button add-pdf add-file-btn">Добавить/изменить PDF</button>
+                    <button type="button" class="button add-pdf add-file-btn">Добавить/изменить PDF</button>
                 </div>
                 <?php
                 break;
@@ -265,8 +265,8 @@ function show_custom_metabox($post, $meta_fields)
                 <div class="wrap">
                     <input type="hidden" name="<?= $field['id'] ?>" value="<?= $meta ?>">
                     <input type="text" class="filename-input" disabled value="<?= substr($meta, strrpos($meta, '/')+1) ?>">
-                    <button class="button remove-file-btn">Удалить</button>
-                    <button class="button add-video add-file-btn">Добавить/изменить видео</button>
+                    <button type="button" class="button remove-file-btn">Удалить</button>
+                    <button type="button" class="button add-video add-file-btn">Добавить/изменить видео</button>
                 </div>
                 <?php
                 break;
@@ -295,7 +295,7 @@ function show_custom_metabox($post, $meta_fields)
                     printRepeaterItems($meta, $field['data-description'], $field['id']);
                     ?>
                 </ul>
-                <button class="button add-combo-item-btn <?= $field['behavior']; ?>">Добавить элемент</button>
+                <button type="button" class="button add-combo-item-btn <?= $field['behavior']; ?>">Добавить элемент</button>
                 <script type="template">
                     <?php
                     repeaterItemHTML($field['data-description'], [], '', $field['id']);
