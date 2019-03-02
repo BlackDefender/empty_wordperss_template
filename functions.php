@@ -25,7 +25,7 @@ function enqueue_assets()
     wp_enqueue_style( 'bundle', Utils::getAssetUrlWithTimestamp('/css/bundle.css'), [], null);
     wp_deregister_script('jquery');
     wp_deregister_script('wp-embed');
-    wp_enqueue_script('bundle', Utils::getAssetUrlWithTimestamp('/js/bundle.js'), [], null, true);
+    wp_enqueue_script('bundle', Utils::getAssetUrlWithTimestamp('/js/min/bundle.js'), [], null, true);
 }
 add_action('wp_enqueue_scripts', 'enqueue_assets');
 
