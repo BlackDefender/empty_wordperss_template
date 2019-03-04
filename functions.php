@@ -17,6 +17,18 @@ include_once 'hot-reload/init.php';
 $templateUri = get_template_directory_uri();
 $contactsData = get_option('contacts_data');
 
+function dump($data)
+{
+    echo '<pre>';
+    var_dump($data);
+    echo '</pre>';
+}
+
+function dumpToJs($data, $variableName)
+{
+    echo '<script> var '.$variableName.'='.json_encode($data).'</script>';
+}
+
 function enqueue_assets()
 {
     if(!is_admin()){
