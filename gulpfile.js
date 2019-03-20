@@ -55,7 +55,7 @@ const jsPages = () => {
 const buildTask = parallel(styles, jsCommon, jsPages);
 
 const watchTask = () => {
-    watch('scss/*.scss', styles);
+    watch('scss/**/*.scss', styles);
     watch('js/src/common/*.js', jsCommon);
     watch('js/src/pages/*.js', jsPages);
 };
