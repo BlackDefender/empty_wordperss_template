@@ -16,6 +16,8 @@ global $contactsData, $templateUri;
 
     <base href="<?= home_url('/'); ?>">
 
+    <script src="<?= $templateUri; ?>/js/min/lazysizes.min.js" async></script>
+
     <meta name="theme-color" content="#ffffff"/>
     <link rel="manifest" href="<?= Utils::getAssetUrlWithTimestamp('manifest.json'); ?>">
 	<?php wp_head(); ?>
