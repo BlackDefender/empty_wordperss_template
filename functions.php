@@ -11,7 +11,7 @@ require_once 'functions/additional-settings.php';
 require_once 'functions/translations.php';
 
 // автоматическая перезагрузка страницы при изменениях (работает только на localhost и IP)
-include_once 'hot-reload/init.php';
+//include_once 'hot-reload/init.php';
 
 // глобальные переменные
 $templateUri = get_template_directory_uri();
