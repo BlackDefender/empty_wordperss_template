@@ -33,6 +33,7 @@ function enqueue_assets()
 {
     if(!is_admin()){
         wp_deregister_style('bodhi-svgs-attachment');
+        wp_dequeue_style( 'wp-block-library' );
     }
     wp_enqueue_style( 'bundle', Utils::getAssetUrlWithTimestamp('/css/bundle.css'), [], null);
     wp_deregister_script('jquery');
