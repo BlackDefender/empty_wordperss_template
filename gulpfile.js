@@ -31,6 +31,7 @@ const jsCommon = () => {
         'js/src/vendor/jquery.form.min.js',
         'js/src/vendor/jquery.maskedinput.min.js',
         'js/src/common/lib.js',
+        'js/src/common/config.js',
         'js/src/common/common.js',
         'js/src/common/modals.js',
 
