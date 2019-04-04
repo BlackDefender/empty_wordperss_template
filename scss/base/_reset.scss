@@ -22,6 +22,10 @@ input, textarea{
     border-radius: 0;
 }
 
+input[type="search"]::-webkit-search-cancel-button{
+    display: none;
+}
+
 input::-webkit-input-placeholder {opacity: 1;}
 input::-moz-placeholder {opacity: 1;}
 input:-moz-placeholder {opacity: 1;}
