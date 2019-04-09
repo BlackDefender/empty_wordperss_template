@@ -58,6 +58,14 @@ function querySelectorAsArray(selector) {
     return Array.prototype.slice.call(document.querySelectorAll(selector));
 }
 
+function isDesktop() {
+    return window.innerWidth > MOBILE_MAX_WIDTH;
+}
+
+function isMobile() {
+    return !isDesktop();
+}
+
 function on(elements, event, callback) {
     if(typeof elements === 'string'){
         elements = querySelectorAsArray(elements);
@@ -125,6 +133,30 @@ function scrollToElement(element, duration) {
         if (timePassed < duration) {
             requestAnimationFrame(doScrollStep);
         }
+    });
+}
+
+/**
+ * @param elements
+ *   массив или массивоподобный объект с элементами для анимации
+ *
+ * @param animationStep
+ *   задержка между стартами анимации элементов
+ *   
+ * Элемент с классом animate-with-prev-element будет анимироваться вместе с предидущим
+**/
+function animateElements(elements, animationStep) {
+    animationStep = animationStep ? animationStep : ANIMATION_STEP;
+    var index = 0;
+    Array.prototype.forEach.call(elements, function (item) {
+        if(!item.classList.contains('animate-with-prev-element')){
+            ++index;
+        }
+        var elementIndex = index;
+        setTimeout(function () {
+            item.classList.remove('unanimated');
+            item.classList.add('animated');
+        }, animationStep * index);
     });
 }
 
