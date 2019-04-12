@@ -23,13 +23,13 @@ const styles = () => {
         .pipe(gulpResolveUrl())
         .pipe(cssmin())
         .pipe(dest('./css/'));
-}
+};
 
 const jsCommon = () => {
     return src([
         'js/src/vendor/jquery.min.js',
-        'js/src/vendor/jquery.form.min.js',
-        'js/src/vendor/jquery.maskedinput.min.js',
+        //'js/src/vendor/jquery.form.min.js',
+        //'js/src/vendor/jquery.maskedinput.min.js',
         'js/src/common/lib.js',
         'js/src/common/config.js',
         'js/src/common/common.js',
@@ -42,7 +42,7 @@ const jsCommon = () => {
         }))
         .pipe(uglify())
         .pipe(dest('js/min', { sourcemaps: enableSourceMaps }))
-}
+};
 
 const jsPages = () => {
     return src('js/src/pages/*.js', { sourcemaps: enableSourceMaps })
@@ -51,7 +51,7 @@ const jsPages = () => {
         }))
         .pipe(uglify())
         .pipe(dest('js/min', { sourcemaps: enableSourceMaps }))
-}
+};
 
 const buildTask = parallel(styles, jsCommon, jsPages);
 
