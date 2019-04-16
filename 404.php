@@ -16,6 +16,9 @@ if($requestedPage !== '404'){
 }
 
 header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
+
+wp_enqueue_style('page-404', Utils::getAssetUrlWithTimestamp('/css/page-404.css'), ['bundle'], null);
+
 get_header();
 ?>
 <main id="page-404" class="page">
