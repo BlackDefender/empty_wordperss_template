@@ -10,7 +10,7 @@ if($requestedPage !== '404'){
     }else{
         $homeUrl = home_url('/');
     }
-    header($_SERVER['SERVER_PROTOCOL'].' 302 Moved Temporarily');
+    header($_SERVER['SERVER_PROTOCOL'].' 301 Moved Permanently');
     header('Location: '.$homeUrl.'404/');
     exit(0);
 }
