@@ -4,11 +4,6 @@
 @import "base/fonts";
 @import "base/common";
 
-
-@import "modules/buttons";
-@import "modules/forms";
-@import "modules/modals";
-
-
-@import "application/sections/header";
-@import "application/sections/footer";
+@import "modules/*";
+@import "application/sections/*";
+@import "application/layouts/*";

@@ -10,11 +10,14 @@ const concat = require('gulp-concat');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 
+const bulkSass = require('gulp-sass-bulk-import');
+
 const isProductionMode = process.argv.includes('--production') || process.argv.includes('-p');
 const enableSourceMaps = !isProductionMode;
 
 const styles = () => {
     return src('scss/*.scss')
+        .pipe(bulkSass())
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(autoprefixer({
