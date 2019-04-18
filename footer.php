@@ -1,5 +1,5 @@
 <?php
-global $contactsData, $templateUri;
+global $contactsData, $templateUri, $homeUrl;
 ?>
 <div class="footer-container">
 	<footer>

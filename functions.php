@@ -1,10 +1,15 @@
 <?php
 
+// глобальные переменные
+$templateUri = get_template_directory_uri();
+$contactsData = get_option('contacts_data');
+$homeUrl = function_exists('pll_home_url') ? pll_home_url() : home_url('/');
+
 add_theme_support('post-thumbnails');
 add_theme_support('menus');
 
 require_once 'autoload.php';
-
+require_once 'functions/dump.php';
 require_once 'functions/post-types.php';
 require_once 'functions/meta-fields-engine.php';
 require_once 'functions/additional-settings.php';
@@ -13,21 +18,6 @@ require_once 'functions/translations.php';
 // автоматическая перезагрузка страницы при изменениях (работает только на localhost и IP)
 //include_once 'hot-reload/init.php';
 
-// глобальные переменные
-$templateUri = get_template_directory_uri();
-$contactsData = get_option('contacts_data');
-
-function dump($data)
-{
-    echo '<pre>';
-    var_dump($data);
-    echo '</pre>';
-}
-
-function dumpToJs($data, $variableName)
-{
-    echo '<script> var '.$variableName.'='.json_encode($data).'</script>';
-}
 
 function enqueue_assets()
 {

@@ -1,6 +1,6 @@
 <?php
 
-global $contactsData, $templateUri;
+global $contactsData, $templateUri, $homeUrl;
 
 ?>
 <!doctype html>
@@ -30,7 +30,7 @@ global $contactsData, $templateUri;
     <meta name="msapplication-wide310x150logo" content="<?= $templateUri; ?>/images/favicons/mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="<?= $templateUri; ?>/images/favicons/mstile-310x310.png" />
 
-    <base href="<?= home_url('/'); ?>">
+    <base href="<?= $homeUrl; ?>">
 
     <script src="<?= $templateUri; ?>/js/min/lazysizes.min.js" async></script>
 
@@ -41,7 +41,7 @@ global $contactsData, $templateUri;
 <body>
 <div class="header-container">
 	<header>
-	    <a href="<?= home_url('/'); ?>" class="logo" aria-label="Logo"></a>
+	    <a href="<?= $homeUrl; ?>" class="logo" aria-label="Logo"></a>
         <?php
         wp_nav_menu(array('theme_location' => 'main-menu', 'menu_class' => 'main-menu', 'container' => false));
         ?>
