@@ -70,13 +70,14 @@ class Utils
         }
     }
 
-    // получить страницу связанную с шаблоном архива
-    public static function getBindedPage($file)
+    // получить страницу связанную с шаблоном
+    public static function getBindedPage($templateName)
     {
+        $templateName = Utils::normalizeTemplateFileName($templateName);
         return (new WP_Query(array(
             'post_type' => 'page',
             'meta_key' => '_wp_page_template',
-            'meta_value' => basename($file),
+            'meta_value' => basename($templateName),
         )))->posts[0];
     }
 
@@ -128,6 +129,11 @@ class Utils
 	public static function getTemplateFileName($postId)
     {
         return get_post_meta($postId, '_wp_page_template', true);
+    }
+
+    public static function getPageUrlByTemplateFileName($templateName)
+    {
+        return get_permalink(self::getBindedPage($templateName)->ID);
     }
 	
 	public static function emailRegExp() {
@@ -181,4 +187,12 @@ class Utils
 		);
 		return strtr($string, $converter);
 	}
+
+	private static function normalizeTemplateFileName($fileName)
+    {
+        if(substr($fileName, -4) !== '.php'){
+            $fileName .= '.php';
+        }
+        return $fileName;
+    }
 }
