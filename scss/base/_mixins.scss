@@ -1,3 +1,11 @@
+@mixin placeholder {
+    &::-webkit-input-placeholder {@content}
+    &:-moz-placeholder {@content}
+    &::-moz-placeholder {@content}
+    &:-ms-input-placeholder {@content}
+    &:placeholder {@content}
+}
+
 @keyframes underline-run-right{
     0%{
         background-size: 100% 100%;
