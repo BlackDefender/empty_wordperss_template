@@ -5,25 +5,25 @@
 $exampleFieldsSet = [
     [
         'label' => 'Текст заголовка',
-        'type'  => 'header'// большой заголовок посреди таблицы
+        'type'  => 'header',
     ],
     [
         'label' => 'Текстовое поле',
         'desc'  => 'Описание для поля.',
         'id'    => 'mytextinput',
-        'type'  => 'text'
+        'type'  => 'text',
     ],
     [
         'label' => 'Большое текстовое поле',
         'desc'  => 'Описание для поля.',
         'id'    => 'mytextarea',
-        'type'  => 'textarea'
+        'type'  => 'textarea',
     ],
     [
         'label' => 'Чекбоксы (флажки]',
         'desc'  => 'Описание для поля.',
         'id'    => 'mycheckbox',
-        'type'  => 'checkbox'
+        'type'  => 'checkbox',
     ],
     [
         'label' => 'Всплывающий список',
@@ -33,17 +33,17 @@ $exampleFieldsSet = [
         'options' => [  // Параметры, всплывающие данные
             'one' => [
                 'label' => 'Вариант 1',  // Название поля
-                'value' => '1'  // Значение
+                'value' => '1',  // Значение
             ],
             'two' => [
-                'label' => 'Вариант 2',  // Название поля
-                'value' => '2'  // Значение
+                'label' => 'Вариант 2',
+                'value' => '2',
             ],
             'three' => [
-                'label' => 'Вариант 3',  // Название поля
-                'value' => '3'  // Значение
-            ]
-        ]
+                'label' => 'Вариант 3',
+                'value' => '3',
+            ],
+        ],
     ],
     [
         'label' => 'Список заголовков постов',
@@ -51,29 +51,29 @@ $exampleFieldsSet = [
         'id'    => 'author',
         'type'  => 'posts-list',
         'target_post_type' => 'workers',// тип постов для вывода
-        'intro_text' => 'Вступительный текст для первого пункта меню'
+        'intro_text' => 'Вступительный текст для первого пункта меню',
     ],
 
     [
         'label' => 'Изображение',
         'desc'  => 'Выберите изображение',
         'id'    => 'my_image',  //айдишник элемента, у инпутов используется в качестве имени. нужен при выборке метаданных
-        'type'  => 'image'  // Указываем тип поля.
+        'type'  => 'image',  // Указываем тип поля.
     ],
     [
         'label' => 'Аудиозапись',
         'id' => 'audio',
-        'type' => 'audio'
+        'type' => 'audio',
     ],
     [
         'label' => 'PDF-файл',
         'id' => 'pdf',
-        'type' => 'pdf'
+        'type' => 'pdf',
     ],
     [
         'label' => 'Визуальный редактор',
         'id' => 'visual_editor', // только нижнее подчеркивание. с тире будет ошибка
-        'type' => 'wysiwyg'
+        'type' => 'wysiwyg',
     ],
     [
         'label' => 'Галерея',
@@ -84,12 +84,12 @@ $exampleFieldsSet = [
         'behavior' => 'gallery', // list || gallery
         'data-description' => [
             [
+                'label' => 'Изображение',
                 'type' => 'image',
-                'label' => 'Изображение'
             ],
             [
-                'type' => 'text',
                 'label' => 'Текстовый ввод',
+                'type' => 'text',
             ],
         ]
     ],
@@ -102,32 +102,32 @@ $exampleFieldsSet = [
         'behavior' => 'list', // list || gallery
         'data-description' => [
             [
-                'type' => 'text',
                 'label' => 'Текстовый ввод',
+                'type' => 'text',
             ],
             [
+                'label' => 'Текстовое поле',
                 'type' => 'textarea',
-                'label' => 'Текстовое поле'
             ],
             [
+                'label' => 'Изображение',
                 'type' => 'image',
-                'label' => 'Изображение'
             ],
             [
+                'label' => 'Аудиозапись',
                 'type' => 'audio',
-                'label' => 'Аудиозапись'
             ],
             [
+                'label' => 'PDF',
                 'type' => 'pdf',
-                'label' => 'PDF'
             ],
 			[
                 'type' => 'postsList',
                 'label' => 'Заголовок',
                 'post_type' => 'some-post-type',
-                'intro_text' => 'Выберите элемент'
+                'intro_text' => 'Выберите элемент',
             ],
-        ]
+        ],
     ],
 ];
 */
