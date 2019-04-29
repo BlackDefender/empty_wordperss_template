@@ -1,29 +1,56 @@
-function openModal(modal) {
+/*
+* Модальные окна.
+* Модальным окном может быть как всплывающее окно(.pop-up) так и выдвижная боковая панель(.side-panel)
+* У боковой панели должен быть отдельный от нее элемент фона. Id фона должен содержаться в атрибуте data-bg-id окна.
+* У кнопки открытия модального окна должен быть класс modal-opener и аттрибут data-modal-id с айдишником окна.
+* */
+
+const openModal = modal => {
     modal = typeof modal === 'string' ? document.getElementById(modal) : modal;
     pageScrollState.fix();
+    if(modal.dataset.bgId){
+        document.getElementById(modal.dataset.bgId).classList.add('active');
+    }
     modal.classList.add('active');
-}
+};
 
-function closeModal(modal) {
+const closeModal = modal => {
     modal = typeof modal === 'string' ? document.getElementById(modal) : modal;
+    if(modal.dataset.bgId){
+        document.getElementById(modal.dataset.bgId).classList.remove('active');
+    }
     modal.classList.remove('active');
     pageScrollState.unfix();
-}
+};
 
-Array.prototype.slice.call(document.querySelectorAll('.modal')).forEach(function (modal) {
-    modal.addEventListener('click', function () {
-        closeModal(modal);
-    });
-    modal.querySelector('.close-btn').addEventListener('click', function () {
-        closeModal(modal);
-    });
-    modal.querySelector('.window').addEventListener('click', function (e) {
-        e.stopPropagation();
-    });
+querySelectorAsArray('.modal').forEach( modal => {
+    if(modal.dataset.bgId) {
+        document.getElementById(modal.dataset.bgId).addEventListener('click', () => {
+            closeModal(modal);
+        });
+    }else{
+        modal.addEventListener('click', () => {
+            closeModal(modal);
+        });
+    }
+
+    const modalCloseBtn = modal.querySelector('.close-btn');
+    if(modalCloseBtn){
+        modalCloseBtn.addEventListener('click', () => {
+            closeModal(modal);
+        });
+    }
+
+    const modalWindow = modal.querySelector('.window');
+    if(modalWindow){
+        modalWindow.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
 });
 
-Array.prototype.slice.call(document.querySelectorAll('.modal')).forEach(function (modalOpener) {
-    modalOpener.addEventListener('click', function () {
-        openModal(this.dataset.modalId);
+querySelectorAsArray('.modal-opener').forEach( modalOpener => {
+    modalOpener.addEventListener('click', () => {
+        openModal(modalOpener.dataset.modalId);
     });
 });

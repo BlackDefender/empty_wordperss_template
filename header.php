@@ -38,7 +38,7 @@ global $contactsData, $templateUri, $homeUrl;
     <link rel="manifest" href="<?= Utils::getAssetUrlWithTimestamp('manifest.json'); ?>">
 	<?php wp_head(); ?>
 </head>
-<body>
+<body data-template-uri="<?= $templateUri; ?>">
 <div class="header-container">
 	<header>
 	    <a href="<?= $homeUrl; ?>" class="logo" aria-label="Logo"></a>
