@@ -12,8 +12,7 @@ const uglify = require('gulp-uglify');
 
 const bulkSass = require('gulp-sass-bulk-import');
 
-const isProductionMode = process.argv.includes('--production') || process.argv.includes('-p');
-const enableSourceMaps = !isProductionMode;
+const enableSourceMaps = ['--development', '-dev', '-d'].some(item => process.argv.includes(item));
 
 const styles = () => {
     return src('scss/*.scss')
