@@ -12,7 +12,7 @@ const uglify = require('gulp-uglify');
 
 const bulkSass = require('gulp-sass-bulk-import');
 
-const enableSourceMaps = ['--development', '-dev', '-d'].some(item => process.argv.includes(item));
+const enableSourceMaps = ['--sourcemaps', '-s', '--development', '-dev', '-d'].some(item => process.argv.includes(item));
 
 const styles = () => {
     return src('scss/*.scss')
