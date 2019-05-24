@@ -78,52 +78,61 @@ $exampleFieldsSet = [
     [
         'label' => 'Галерея',
         'desc'  => 'Описание для поля.',
-        'id'    => 'my_combo_gallery', // даем идентификатор.
-        'type'  => 'combo',  // Указываем тип поля.
+        'id'    => 'my_gallery',
+        'type'  => 'repeater',
         'display' => 'line', // stack || line
         'behavior' => 'gallery', // list || gallery
-        'data-description' => [
+        'fields' => [
             [
                 'label' => 'Изображение',
                 'type' => 'image',
+                'id' => 'image_field_id',
             ],
             [
                 'label' => 'Текстовый ввод',
                 'type' => 'text',
+                'id' => 'alt_field_id',
             ],
         ]
     ],
     [
         'label' => 'Смешанный массив',
         'desc'  => 'Описание для поля.',
-        'id'    => 'my_combo', // даем идентификатор.
-        'type'  => 'combo',  // Указываем тип поля.
+        'id'    => 'my_repeater',
+        'type'  => 'repeater',
         'display' => 'stack', //  stack || line
         'behavior' => 'list', // list || gallery
-        'data-description' => [
-            [
-                'label' => 'Текстовый ввод',
-                'type' => 'text',
-            ],
+        'fields' => [
             [
                 'label' => 'Текстовое поле',
                 'type' => 'textarea',
+                'id' => 'textarea_field_id',
+            ],
+
+            [
+                'label' => 'Текстовый ввод',
+                'type' => 'text',
+                'id' => 'text_field_id',
             ],
             [
                 'label' => 'Изображение',
                 'type' => 'image',
+                'id' => 'image_field_id',
             ],
             [
                 'label' => 'Аудиозапись',
                 'type' => 'audio',
+                'id' => 'audio_field_id',
             ],
             [
                 'label' => 'PDF',
                 'type' => 'pdf',
+                'id' => 'pdf_field_id',
             ],
 			[
-                'type' => 'postsList',
                 'label' => 'Заголовок',
+                'type' => 'postsList',
+                'id' => 'postsList_field_id',
                 'post_type' => 'some-post-type',
                 'intro_text' => 'Выберите элемент',
             ],

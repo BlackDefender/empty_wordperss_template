@@ -17,22 +17,42 @@ add_action('admin_enqueue_scripts', 'add_metabox_scripts');
 
 require_once 'meta-fields-data.php';
 
+function pageMetaFields($page)
+{
+    global $meta_boxes;
+    $pageMetaBoxes = array_filter($meta_boxes, function($box)use($page){
+        return metaBoxIsForCurrentPage($box, $page);
+    });
+    $currentPageFieldsSets = array_map(function ($metaBox) {
+        return $metaBox['meta_fields'];
+        }, $pageMetaBoxes);
+    $res = [];
+    foreach ($currentPageFieldsSets as $fieldsSet){
+        foreach ($fieldsSet as $field){
+            $res[] = $field;
+        }
+    }
+    return $res;
+}
 
-function metaBoxIsForCurrentPage($box)
+function metaBoxIsForCurrentPage($box, $currentPage = null)
 {
     global $post;
+    if($currentPage === null){
+        $currentPage = $post;
+    }
 
-    if ($post->post_type != $box['post_type']) {
+    if ($currentPage->post_type != $box['post_type']) {
         return false;
     }
 
     if (isset($box['post_not_id'])) {
         if (is_array($box['post_not_id'])) {
-            if (in_array($post->ID, $box['post_not_id'])) {
+            if (in_array($currentPage->ID, $box['post_not_id'])) {
                 return false;
             }
         } else {
-            if ($box['post_not_id'] == $post->ID) {
+            if ($box['post_not_id'] == $currentPage->ID) {
                 return false;
             }
         }
@@ -40,18 +60,18 @@ function metaBoxIsForCurrentPage($box)
 
     if (isset($box['post_id'])) {
         if (is_array($box['post_id'])) {
-            if (!in_array($post->ID, $box['post_id'])) {
+            if (!in_array($currentPage->ID, $box['post_id'])) {
                 return false;
             }
         } else {
-            if ($box['post_id'] != $post->ID) {
+            if ($box['post_id'] != $currentPage->ID) {
                 return false;
             }
         }
     }
 
     if (isset($box['template'])) {
-        $currentPageTemplate = get_post_meta($post->ID, '_wp_page_template', true);
+        $currentPageTemplate = get_post_meta($currentPage->ID, '_wp_page_template', true);
         if (is_array($box['template'])) {
             if (!in_array($currentPageTemplate, $box['template'])) {
                 return false;
@@ -91,63 +111,68 @@ function getItemByIndex($arr, $index)
     return isset($arr[$index]) ? $arr[$index] : '';
 }
 
-function repeaterItemHTML($dataDescription, $metaDataItem, $metaDataItemIndex, $fieldName)
+function repeaterItemHTML($fields, $metaDataItem, $metaDataItemIndex, $fieldName)
 {
     ?>
     <li>
         <?php
-        foreach ($dataDescription as $dataDescriptionItemIndex => $dataDescriptionItem):
+        foreach ($fields as $field):
+            $fieldId = $field['id'];
             ?>
             <div class="combo-item-field-wrap">
-                <div class="combo-item-field-title"><?= $dataDescriptionItem['label']; ?></div>
+                <div class="combo-item-field-title"><?= $field['label']; ?></div>
                 <div class="combo-item-field-body">
                     <?php
-                    switch ($dataDescriptionItem['type']) {
+                    switch ($field['type']) {
                         case 'text':
                             echo "<input type='text'
-                                 value='" . format_to_edit(getItemByIndex($metaDataItem, $dataDescriptionItemIndex)) . "'
-                                 name='{$fieldName}[$metaDataItemIndex][$dataDescriptionItemIndex]'>";
+                                 value='" . format_to_edit(getItemByIndex($metaDataItem, $fieldId)) . "'
+                                 data-field-id='".$fieldId."'
+                                 name='{$fieldName}[$metaDataItemIndex][$fieldId]'>";
                             break;
                         case 'textarea':
-                            echo "<textarea name='{$fieldName}[$metaDataItemIndex][$dataDescriptionItemIndex]'>".format_to_edit($metaDataItem[$dataDescriptionItemIndex])."</textarea>";
+                            echo "<textarea name='{$fieldName}[$metaDataItemIndex][$fieldId]' data-field-id='".$fieldId."'>".format_to_edit($metaDataItem[$fieldId])."</textarea>";
                             break;
                         case 'image':
-                            $imageID = getItemByIndex($metaDataItem, $dataDescriptionItemIndex);
+                            $imageID = getItemByIndex($metaDataItem, $fieldId);
                             $imageStyleAttr = '';
                             if(!empty($imageID)){
                                 $imageStyleAttr = "style='background-image: url(" . wp_get_attachment_image_src($imageID)[0] . ")'";
                             }
                             echo "<input type='hidden'
                                  value='" . $imageID . "'
-                                 name='{$fieldName}[$metaDataItemIndex][$dataDescriptionItemIndex]'>
+                                 data-field-id='".$fieldId."'
+                                 name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
                           <div class='image-preview add-image' ". $imageStyleAttr ."><div class='remove'></div></div>";
                             break;
                         case 'audio':
-                            $fileUrl = getItemByIndex($metaDataItem, $dataDescriptionItemIndex);
+                            $fileUrl = getItemByIndex($metaDataItem, $fieldId);
                             echo "<input type='hidden'
                                  value='" . $fileUrl . "'
-                                 name='{$fieldName}[$metaDataItemIndex][$dataDescriptionItemIndex]'>
+                                 data-field-id='".$fieldId."'
+                                 name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
                           <input type='text' disabled class='no-index filename-input' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '').">
                           <button type='button' class='button add-audio add-file-btn'>Добавить/изменить аудиозапись</button>";
                             break;
                         case 'pdf':
-                            $fileUrl = getItemByIndex($metaDataItem, $dataDescriptionItemIndex);
+                            $fileUrl = getItemByIndex($metaDataItem, $fieldId);
                             echo "<input type='hidden'
                                  value='" . $fileUrl . "'
-                                 name='{$fieldName}[$metaDataItemIndex][$dataDescriptionItemIndex]'>
+                                 data-field-id='".$fieldId."'
+                                 name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
                           <input class='no-index filename-input' type='text' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '')." disabled>
                           <button type='button' class='button add-pdf add-file-btn'>Добавить/изменить PDF</button>";
                             break;
 						case 'postsList':
                             $postsList = new WP_Query([
-                                'post_type' => $dataDescriptionItem['post_type'],
+                                'post_type' => $field['post_type'],
                                 'posts_per_page' => -1,
                             ]);
                             if ($postsList->have_posts()) {
-                                $currentItemData = getItemByIndex($metaDataItem, $dataDescriptionItemIndex);
-                                echo "<select name='{$fieldName}[$metaDataItemIndex][$dataDescriptionItemIndex]' class='posts-list'>";
+                                $currentItemData = getItemByIndex($metaDataItem, $fieldId);
+                                echo "<select name='{$fieldName}[$metaDataItemIndex][$fieldId]' data-field-id='".$fieldId."' class='posts-list'>";
                                 if (empty($currentItemData)) {
-                                    echo '<option disabled selected value="-1">' . $dataDescriptionItem['intro_text'] . '</option>';
+                                    echo '<option disabled selected value="-1">' . $field['intro_text'] . '</option>';
                                 }
                                 foreach ($postsList->posts as $p){
                                     $selected = $currentItemData == $p->ID ? ' selected="selected"' : '';
@@ -286,19 +311,19 @@ function show_custom_metabox($post, $meta_fields)
             case 'wysiwyg':
                 wp_editor($meta, $field['id']);
                 break;
-            case 'combo':
+            case 'repeater':
                 ?>
                 <ul class="combo <?= $field['display'] ?>"
                     data-id="<?= $field['id']; ?>"
                     data-get-image-url="<?= get_template_directory_uri(); ?>/functions/assets/get-image-thumbnail-url.php">
                     <?php
-                    printRepeaterItems($meta, $field['data-description'], $field['id']);
+                    printRepeaterItems($meta, $field['fields'], $field['id']);
                     ?>
                 </ul>
                 <button type="button" class="button add-combo-item-btn <?= $field['behavior']; ?>">Добавить элемент</button>
                 <script type="template">
                     <?php
-                    repeaterItemHTML($field['data-description'], [], '', $field['id']);
+                    repeaterItemHTML($field['fields'], [], '', $field['id']);
                     ?>
                 </script>
                 <?php

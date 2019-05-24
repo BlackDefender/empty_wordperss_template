@@ -45,7 +45,7 @@ class Utils
         if (isset($postId)) {
             $metaData = get_metadata($postType, $postId, '');
             if (!empty($metaData)) {
-                return self::normalizeMetaData($metaData, $showHiddenFields);
+                return self::normalizeMetaData($metaData, $showHiddenFields, $postId);
             } else {
                 return [];
             }
@@ -54,20 +54,32 @@ class Utils
         }
     }
 
-    private static function normalizeMetaData($metaDataRaw, $showHiddenFields)
+    private static function normalizeMetaData($metaData, $showHiddenFields, $postId)
     {
-        if($showHiddenFields){
-            return array_map(function ($item) {
-                return maybe_unserialize($item[0]);
-            }, $metaDataRaw);
-        }else{
-            $metaDataFiltered = array_filter($metaDataRaw, function ($key) {
+        if(!$showHiddenFields){
+            $metaData = array_filter($metaData, function ($key) {
                 return mb_substr($key, 0, 1) !== '_';
             }, ARRAY_FILTER_USE_KEY);
-            return array_map(function ($item) {
-                return maybe_unserialize($item[0]);
-            }, $metaDataFiltered);
         }
+
+        $metaDataUnserialized = array_map(function ($item) {
+            return maybe_unserialize($item[0]);
+        }, $metaData);
+
+        $pageMetaFields = pageMetaFields(get_post($postId));
+        $pageMetaFieldsTypes = [];
+        foreach ($pageMetaFields as $item){
+            if(isset($item['id'])){
+                $pageMetaFieldsTypes[$item['id']] = $item['type'];
+            }
+        }
+
+        foreach ($metaDataUnserialized as $key => $value){
+            if($pageMetaFieldsTypes[$key] === 'repeater'){
+                $metaDataUnserialized[$key] = array_map(function ($item){ return (object)$item;}, $value);
+            }
+        }
+        return $metaDataUnserialized;
     }
 
     // получить страницу связанную с шаблоном
