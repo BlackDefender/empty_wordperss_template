@@ -41,28 +41,49 @@ input[type='text']{
     opacity: 0;
     transition: opacity 0.3s;
 }
+.image-preview .image-file-name{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #000;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
 .image-preview:hover .remove{
     opacity: 0.6;
 }
 .image-preview .remove:hover{
     opacity: 1;
 }
-.image-preview.empty .remove{
+.image-preview:hover .image-file-name{
+    opacity: 1;
+}
+.image-preview.empty .remove,
+.image-preview.empty .image-file-name{
     visibility: hidden;
 }
 
-/* AUDIO, PDF */
+/* FILE */
+.file-input-container{
+    display: flex;
+}
 input.filename-input{
     width: calc(100% - 240px);
-    float: left;
 }
-.add-file-btn{
+.wp-core-ui .button.add-file-btn{
     width: 230px;
-    float: right;
+    margin: 0 5px;
 }
 .wp-core-ui .button.remove-file-btn{
-    float: right;
-    margin: 0 0 0 5px;
+
 }
 
 .metabox-item-description{

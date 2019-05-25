@@ -143,25 +143,63 @@ function repeaterItemHTML($fields, $metaDataItem, $metaDataItemIndex, $fieldName
                                  value='" . $imageID . "'
                                  data-field-id='".$fieldId."'
                                  name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
-                          <div class='image-preview add-image' ". $imageStyleAttr ."><div class='remove'></div></div>";
+                          <div class='image-preview add-image' ". $imageStyleAttr ."><div class='remove'></div><div class='image-file-name'></div></div>";
                             break;
                         case 'audio':
                             $fileUrl = getItemByIndex($metaDataItem, $fieldId);
-                            echo "<input type='hidden'
-                                 value='" . $fileUrl . "'
-                                 data-field-id='".$fieldId."'
-                                 name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
-                          <input type='text' disabled class='no-index filename-input' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '').">
-                          <button type='button' class='button add-audio add-file-btn'>Добавить/изменить аудиозапись</button>";
+                            echo "<div class='file-input-container'>
+                                      <input type='hidden'
+                                             value='" . $fileUrl . "'
+                                             data-field-id='".$fieldId."'
+                                             name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
+                                      <input type='text' disabled class='no-index filename-input' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '').">
+                                      <button type='button' class='button add-file-btn'
+                                              data-title='Добавить аудиозапись'
+                                              data-file-type='audio'>Добавить/изменить аудио</button>
+                                      <button type='button' class='button remove-file-btn'>Удалить</button>
+                                  </div>";
                             break;
                         case 'pdf':
                             $fileUrl = getItemByIndex($metaDataItem, $fieldId);
-                            echo "<input type='hidden'
-                                 value='" . $fileUrl . "'
-                                 data-field-id='".$fieldId."'
-                                 name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
-                          <input class='no-index filename-input' type='text' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '')." disabled>
-                          <button type='button' class='button add-pdf add-file-btn'>Добавить/изменить PDF</button>";
+                            echo "<div class='file-input-container'>
+                                    <input type='hidden'
+                                         value='" . $fileUrl . "'
+                                         data-field-id='".$fieldId."'
+                                         name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
+                                      <input class='no-index filename-input' type='text' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '')." disabled>
+                                      <button type='button' class='button add-file-btn'
+                                              data-title='Добавить PDF'
+                                              data-file-type='pdf'>Добавить/изменить PDF</button>
+                                      <button type='button' class='button remove-file-btn'>Удалить</button>
+                                </div>";
+                            break;
+                        case 'video':
+                            $fileUrl = getItemByIndex($metaDataItem, $fieldId);
+                            echo "<div class='file-input-container'>
+                                    <input type='hidden'
+                                         value='" . $fileUrl . "'
+                                         data-field-id='".$fieldId."'
+                                         name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
+                                      <input class='no-index filename-input' type='text' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '')." disabled>
+                                      <button type='button' class='button add-file-btn'
+                                              data-title='Добавить видео'
+                                              data-file-type='video'>Добавить/изменить видео</button>
+                                      <button type='button' class='button remove-file-btn'>Удалить</button>
+                                </div>";
+                            break;
+                        case 'file':
+                            $fileUrl = getItemByIndex($metaDataItem, $fieldId);
+                            echo "<div class='file-input-container'>
+                                    <input type='hidden'
+                                         value='" . $fileUrl . "'
+                                         data-field-id='".$fieldId."'
+                                         name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
+                                      <input class='no-index filename-input' type='text' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '')." disabled>
+                                      <button type='button' class='button add-file-btn'
+                                              data-title='Добавить файл'
+                                              data-file-type='any'>Добавить/изменить файл</button>
+                                      <button type='button' class='button remove-file-btn'>Удалить</button>
+                                </div>";
                             break;
 						case 'postsList':
                             $postsList = new WP_Query([
@@ -250,7 +288,7 @@ function show_custom_metabox($post, $meta_fields)
                 break;
 
             case 'image':
-                $image = wp_get_attachment_image_src($meta);
+                $image = wp_get_attachment_image_url($meta, 'thumbnail');
                 $style = '';
                 if ($image) {
                     $style = "background-image: url( $image[0] )";
@@ -260,6 +298,7 @@ function show_custom_metabox($post, $meta_fields)
                     <input type="hidden" name="<?= $field['id'] ?>" value="<?= $meta ?>">
                     <div class="image-preview add-image"<?= empty($style) ? '' : ' style="' . $style . '"'; ?>>
                         <div class="remove"></div>
+                        <div class="image-file-name"></div>
                     </div>
                 </div>
                 <?php
@@ -267,31 +306,53 @@ function show_custom_metabox($post, $meta_fields)
 
             case 'audio':
                 ?>
-                <div class="wrap">
+                <div class="wrap file-input-container">
                     <input type="hidden" name="<?= $field['id'] ?>" value="<?= $meta ?>">
                     <input type="text" class="filename-input" disabled
                            value="<?= substr($meta, strrpos($meta, '/') + 1) ?>">
-                    <button type="button" class="button add-audio add-file-btn">Добавить/изменить аудиозапись</button>
+                    <button type="button" class="button add-file-btn"
+                            data-title="Добавить аудиозапись"
+                            data-file-type="audio">Добавить/изменить аудио</button>
+                    <button type="button" class="button remove-file-btn">Удалить</button>
                 </div>
                 <?php
                 break;
             case 'pdf':
                 ?>
-                <div class="wrap">
+                <div class="wrap file-input-container">
                     <input type="hidden" name="<?= $field['id'] ?>" value="<?= $meta ?>">
                     <input type="text" class="filename-input" disabled
                            value="<?= substr($meta, strrpos($meta, '/') + 1) ?>">
-                    <button type="button" class="button add-pdf add-file-btn">Добавить/изменить PDF</button>
+                    <button type="button" class="button add-file-btn"
+                            data-title="Добавить PDF"
+                            data-file-type="pdf">Добавить/изменить PDF</button>
+                    <button type="button" class="button remove-file-btn">Удалить</button>
                 </div>
                 <?php
                 break;
 			case 'video':
                 ?>
-                <div class="wrap">
+                <div class="wrap file-input-container">
                     <input type="hidden" name="<?= $field['id'] ?>" value="<?= $meta ?>">
-                    <input type="text" class="filename-input" disabled value="<?= substr($meta, strrpos($meta, '/')+1) ?>">
+                    <input type="text" class="filename-input" disabled
+                           value="<?= substr($meta, strrpos($meta, '/')+1) ?>">
+                    <button type="button" class="button add-file-btn"
+                            data-title="Добавить видео"
+                            data-file-type="video">Добавить/изменить видео</button>
                     <button type="button" class="button remove-file-btn">Удалить</button>
-                    <button type="button" class="button add-video add-file-btn">Добавить/изменить видео</button>
+                </div>
+                <?php
+                break;
+            case 'file':
+                ?>
+                <div class="wrap file-input-container">
+                    <input type="hidden" name="<?= $field['id'] ?>" value="<?= $meta ?>">
+                    <input type="text" class="filename-input" disabled
+                           value="<?= substr($meta, strrpos($meta, '/')+1) ?>">
+                    <button type="button" class="button add-file-btn"
+                            data-title="Добавить файл"
+                            data-file-type="any">Добавить/изменить файл</button>
+                    <button type="button" class="button remove-file-btn">Удалить</button>
                 </div>
                 <?php
                 break;

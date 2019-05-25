@@ -6,6 +6,7 @@ jQuery(function($) {
     /* Image */
     $document.on('click', '.add-image', function() {
         var $image = $(this);
+        var image = this;
         if (file_frame) file_frame.close();
         file_frame = wp.media({
             title: 'Добавить изображение',
@@ -20,12 +21,15 @@ jQuery(function($) {
             var imageURL = getAttachedImageURL(attachment);
             $image.parent().find('input:hidden').attr('value', attachment.id);
             $image.css('background-image', 'url('+imageURL+')');
+            image.querySelector('.image-file-name').textContent = attachment.filename;
+            image.classList.remove('empty');
         });
         file_frame.open();
     });
     $document.on('click', '.add-image .remove', function (e) {
         e.stopPropagation();
         $(this).parent().removeAttr('style').addClass('empty').parent().find('input[type="hidden"]').val('');
+        this.parentElement.querySelector('.image-file-name').textContent = '';
     });
     $document.on('mouseenter', '.add-image', function () {
         var value = $(this).parent().find('input[type="hidden"]').val();
@@ -38,76 +42,38 @@ jQuery(function($) {
         }
     });
 
-    /* PDF */
-    $document.on('click', '.add-pdf', function(e) {
-        e.preventDefault();
-        var $btn = $(this);
+
+    $document.on('click', '.add-file-btn', function(event) {
+        event.preventDefault();
+        var target = this;
+        var title = this.dataset.title;
+        var fileType = this.dataset.fileType;
         if (file_frame) file_frame.close();
         file_frame = wp.media({
-            title: 'Добавить PDF',
+            title: title,
             button:{
-                text: 'Добавить PDF'
+                text: title
             },
             multiple: false
         });
         file_frame.on( 'select', function() {
             var attachment = file_frame.state().get('selection').first().toJSON();
-            if(attachment.subtype !== 'pdf') return;
-            $btn.parent().find('input[type="hidden"]').attr('value', attachment.url);
-            $btn.parent().find('input[type="text"]').val( attachment.filename);
-        });
-        file_frame.open();
-    });
-	
-	/* Video */
-    $(document).on('click', '.add-video', function(e) {
-        e.preventDefault();
-        var that = $(this);
-        if (file_frame) file_frame.close();
-        file_frame = wp.media({
-            title: 'Добавить видео',
-            button:{
-                text: 'Добавить видео'
-            },
-            multiple: false
-        });
-        file_frame.on( 'select', function() {
-            var attachment = file_frame.state().get('selection').first().toJSON();
-            if(attachment.type !== 'video') return;
-            that.parent().find('input[type="hidden"]').attr('value', attachment.url);
-            that.parent().find('input[type="text"]').val( attachment.filename);
+            if('any' === fileType || attachment.type === fileType || attachment.subtype === fileType){
+                target.parentElement.querySelector('input[type="hidden"]').value = attachment.url;
+                target.parentElement.querySelector('input[type="text"]').value = attachment.filename;
+            }
         });
         file_frame.open();
     });
 
-    /* Audio */
-    $document.on('click', '.add-audio', function(e) {
-        e.preventDefault();
-        var $btn = $(this);
-        if (file_frame) file_frame.close();
-        file_frame = wp.media({
-            title: 'Добавить аудиозапись',
-            button:{
-                text: 'Добавить аудиозапись'
-            },
-            multiple: false
-        });
-        file_frame.on( 'select', function() {
-            var attachment = file_frame.state().get('selection').first().toJSON();
-            if(attachment.type !== 'audio') return;
-            $btn.parent().find('input[type="hidden"]').attr('value', attachment.url);
-            $btn.parent().find('input[type="text"]').attr('value', attachment.filename);
-        });
-        file_frame.open();
-    });
 
 	/* Remove file */
     $document.on('click', '.remove-file-btn', function(e) {
         e.preventDefault();
-        $(this).closest('.wrap').find('input').val('');
+        $(this).closest('.file-input-container').find('input').val('');
     });
 
-    /* Combo */
+    /* Repeater */
     if(document.querySelector('.combo')){
         Array.prototype.forEach.call(document.querySelectorAll('.combo'), function (currentCombo) {
             makeSortable(currentCombo);
@@ -118,8 +84,8 @@ jQuery(function($) {
             var id = $currentCombo.data('id');
             var template = $currentCombo.closest('td').find('script[type="template"]').text();
             var $newItem = $(template);
-            $newItem.find('input:not(.no-index), textarea').each(function (inputIndex, item) {
-                item.name = id + '[' + itemIndex + '][' + inputIndex + ']';
+            $newItem.find('input:not(.no-index), textarea, select').each(function (inputIndex, item) {
+                item.name = id + '[' + itemIndex + '][' + item.dataset.fieldId + ']';
             });
             return $newItem;
         }

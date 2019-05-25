@@ -53,7 +53,6 @@ $exampleFieldsSet = [
         'target_post_type' => 'workers',// тип постов для вывода
         'intro_text' => 'Вступительный текст для первого пункта меню',
     ],
-
     [
         'label' => 'Изображение',
         'desc'  => 'Выберите изображение',
@@ -69,6 +68,16 @@ $exampleFieldsSet = [
         'label' => 'PDF-файл',
         'id' => 'pdf',
         'type' => 'pdf',
+    ],
+    [
+        'label' => 'Видео',
+        'id' => 'video',
+        'type' => 'video',
+    ],
+    [
+        'label' => 'Любой файл',
+        'id' => 'any-file',
+        'type' => 'file',
     ],
     [
         'label' => 'Визуальный редактор',
@@ -108,7 +117,6 @@ $exampleFieldsSet = [
                 'type' => 'textarea',
                 'id' => 'textarea_field_id',
             ],
-
             [
                 'label' => 'Текстовый ввод',
                 'type' => 'text',
@@ -129,7 +137,17 @@ $exampleFieldsSet = [
                 'type' => 'pdf',
                 'id' => 'pdf_field_id',
             ],
-			[
+            [
+                'label' => 'Видео',
+                'type' => 'video',
+                'id' => 'video_field_id',
+            ],
+            [
+                'label' => 'Любой файл',
+                'type' => 'file',
+                'id' => 'any-file',
+            ],
+            [
                 'label' => 'Заголовок',
                 'type' => 'postsList',
                 'id' => 'postsList_field_id',
