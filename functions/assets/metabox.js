@@ -1,11 +1,10 @@
-jQuery(function($) {
+document.addEventListener('DOMContentLoaded',function() {
 
     var file_frame;
     var $document = $(document);
 
     /* Image */
     $document.on('click', '.add-image', function() {
-        var $image = $(this);
         var image = this;
         if (file_frame) file_frame.close();
         file_frame = wp.media({
@@ -19,8 +18,8 @@ jQuery(function($) {
             var attachment = file_frame.state().get('selection').first().toJSON();
             if(attachment.type !== 'image') return;
             var imageURL = getAttachedImageURL(attachment);
-            $image.parent().find('input:hidden').attr('value', attachment.id);
-            $image.css('background-image', 'url('+imageURL+')');
+            image.parentElement.querySelector('input[type="hidden"]').value = attachment.id;
+            image.style.backgroundImage = 'url('+imageURL+')';
             image.querySelector('.image-file-name').textContent = attachment.filename;
             image.classList.remove('empty');
         });

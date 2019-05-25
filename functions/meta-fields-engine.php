@@ -6,8 +6,7 @@
 function add_metabox_scripts($hook)
 {
     if ('post.php' == $hook || 'post-new.php' == $hook) {
-        wp_enqueue_script('metabox-assets', get_template_directory_uri() . '/functions/assets/metabox.js',
-            array('jquery', 'jquery-ui-sortable'));
+        wp_enqueue_script('metabox-assets', get_template_directory_uri() . '/functions/assets/metabox.js', array('jquery', 'jquery-ui-sortable'));
         wp_enqueue_style('metabox-assets', get_template_directory_uri() . '/functions/assets/metabox.css');
     }
 }
@@ -127,30 +126,32 @@ function repeaterItemHTML($fields, $metaDataItem, $metaDataItemIndex, $fieldName
                         case 'text':
                             echo "<input type='text'
                                  value='" . format_to_edit(getItemByIndex($metaDataItem, $fieldId)) . "'
-                                 data-field-id='".$fieldId."'
+                                 data-field-id='$fieldId'
                                  name='{$fieldName}[$metaDataItemIndex][$fieldId]'>";
                             break;
                         case 'textarea':
-                            echo "<textarea name='{$fieldName}[$metaDataItemIndex][$fieldId]' data-field-id='".$fieldId."'>".format_to_edit($metaDataItem[$fieldId])."</textarea>";
+                            echo "<textarea name='{$fieldName}[$metaDataItemIndex][$fieldId]' data-field-id='$fieldId'>".format_to_edit($metaDataItem[$fieldId])."</textarea>";
                             break;
                         case 'image':
                             $imageID = getItemByIndex($metaDataItem, $fieldId);
                             $imageStyleAttr = '';
+                            $imageName = '';
                             if(!empty($imageID)){
-                                $imageStyleAttr = "style='background-image: url(" . wp_get_attachment_image_src($imageID)[0] . ")'";
+                                $imageStyleAttr = "style='background-image: url(" . wp_get_attachment_image_url($imageID, 'thumbnail') . ")'";
+                                $imageName = basename(get_attached_file($imageID));
                             }
                             echo "<input type='hidden'
-                                 value='" . $imageID . "'
-                                 data-field-id='".$fieldId."'
+                                 value='$imageID'
+                                 data-field-id='$fieldId'
                                  name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
-                          <div class='image-preview add-image' ". $imageStyleAttr ."><div class='remove'></div><div class='image-file-name'></div></div>";
+                          <div class='image-preview add-image' $imageStyleAttr><div class='remove'></div><div class='image-file-name'>$imageName</div></div>";
                             break;
                         case 'audio':
                             $fileUrl = getItemByIndex($metaDataItem, $fieldId);
                             echo "<div class='file-input-container'>
                                       <input type='hidden'
-                                             value='" . $fileUrl . "'
-                                             data-field-id='".$fieldId."'
+                                             value='$fileUrl'
+                                             data-field-id='$fieldId'
                                              name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
                                       <input type='text' disabled class='no-index filename-input' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '').">
                                       <button type='button' class='button add-file-btn'
@@ -163,8 +164,8 @@ function repeaterItemHTML($fields, $metaDataItem, $metaDataItemIndex, $fieldName
                             $fileUrl = getItemByIndex($metaDataItem, $fieldId);
                             echo "<div class='file-input-container'>
                                     <input type='hidden'
-                                         value='" . $fileUrl . "'
-                                         data-field-id='".$fieldId."'
+                                         value='$fileUrl'
+                                         data-field-id='$fieldId'
                                          name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
                                       <input class='no-index filename-input' type='text' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '')." disabled>
                                       <button type='button' class='button add-file-btn'
@@ -177,8 +178,8 @@ function repeaterItemHTML($fields, $metaDataItem, $metaDataItemIndex, $fieldName
                             $fileUrl = getItemByIndex($metaDataItem, $fieldId);
                             echo "<div class='file-input-container'>
                                     <input type='hidden'
-                                         value='" . $fileUrl . "'
-                                         data-field-id='".$fieldId."'
+                                         value='$fileUrl'
+                                         data-field-id='$fieldId'
                                          name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
                                       <input class='no-index filename-input' type='text' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '')." disabled>
                                       <button type='button' class='button add-file-btn'
@@ -191,8 +192,8 @@ function repeaterItemHTML($fields, $metaDataItem, $metaDataItemIndex, $fieldName
                             $fileUrl = getItemByIndex($metaDataItem, $fieldId);
                             echo "<div class='file-input-container'>
                                     <input type='hidden'
-                                         value='" . $fileUrl . "'
-                                         data-field-id='".$fieldId."'
+                                         value='$fileUrl'
+                                         data-field-id='$fieldId'
                                          name='{$fieldName}[$metaDataItemIndex][$fieldId]'>
                                       <input class='no-index filename-input' type='text' ".(!empty($fileUrl) ? " value='".basename($fileUrl)."' " : '')." disabled>
                                       <button type='button' class='button add-file-btn'
@@ -268,19 +269,19 @@ function show_custom_metabox($post, $meta_fields)
         echo '</th><td>';
         switch ($field['type']) {
             case 'text':
-                echo '<input type="text" name="' . $field['id'] . '" id="' . $field['id'] . '" value="' . format_to_edit($meta) . '" size="98" />';
+                echo '<input type="text" name="' . $field['id'] . '" value="' . format_to_edit($meta) . '" />';
                 break;
 
             case 'textarea':
-                echo '<textarea name="' . $field['id'] . '" id="' . $field['id'] . '" cols="100" rows="4">' . format_to_edit($meta) . '</textarea>';
+                echo '<textarea name="' . $field['id'] . '" rows="4">' . format_to_edit($meta) . '</textarea>';
                 break;
 
             case 'checkbox':
-                echo '<input type="checkbox" value="1" name="' . $field['id'] . '" id="' . $field['id'] . '" ', $meta ? ' checked="checked"' : '', '/>';
+                echo '<input type="checkbox" value="1" name="' . $field['id'] . '" ', $meta ? ' checked="checked"' : '', '/>';
                 break;
 
             case 'select':
-                echo '<select name="' . $field['id'] . '" id="' . $field['id'] . '">';
+                echo '<select name="' . $field['id'] . '">';
                 foreach ($field['options'] as $option) {
                     echo '<option', $meta == $option['value'] ? ' selected="selected"' : '', ' value="' . $option['value'] . '">' . $option['label'] . '</option>';
                 }
@@ -288,17 +289,18 @@ function show_custom_metabox($post, $meta_fields)
                 break;
 
             case 'image':
-                $image = wp_get_attachment_image_url($meta, 'thumbnail');
                 $style = '';
-                if ($image) {
-                    $style = "background-image: url( $image[0] )";
+                $imageName = '';
+                if (!empty($meta)){
+                    $style = 'background-image: url('.wp_get_attachment_image_url($meta, 'thumbnail').')';
+                    $imageName = basename(get_attached_file($meta));
                 }
                 ?>
                 <div class="wrap">
                     <input type="hidden" name="<?= $field['id'] ?>" value="<?= $meta ?>">
                     <div class="image-preview add-image"<?= empty($style) ? '' : ' style="' . $style . '"'; ?>>
                         <div class="remove"></div>
-                        <div class="image-file-name"></div>
+                        <div class="image-file-name"><?= $imageName; ?></div>
                     </div>
                 </div>
                 <?php
@@ -437,6 +439,4 @@ function save_custom_meta_fields($post_id)
         }
     }
 }
-
 add_action('save_post', 'save_custom_meta_fields'); // Запускаем функцию сохранения
-
