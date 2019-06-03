@@ -45,7 +45,7 @@ function register_additional_settings(){
 	// параметры: $id, $title, $callback, $page
 	add_settings_section( 'common_site_settings_section', 'Общие настройки сайта', '', 'additional_settings_page' );
 	// параметры: $id, $title, $callback, $page, $section, $args
-	add_settings_field('notification_email', 'E-mail для отправки уведомлений', 'render_input_field', 'additional_settings_page', 'common_site_settings_section', array( 'option' => 'common_site_settings', 'id' => 'notification_email', 'type' => 'email') );
+	add_settings_field('notification_email', 'Почта для отправки уведомлений через запятую', 'render_input_field', 'additional_settings_page', 'common_site_settings_section', array( 'option' => 'common_site_settings', 'id' => 'notification_email', 'type' => 'text') );
 
 	/* КОНТАКТНЫЕ ДАННЫЕ */
 	register_setting( 'additional_settings_group', 'contacts_data' );
