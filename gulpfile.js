@@ -19,9 +19,7 @@ const styles = () => {
         .pipe(bulkSass())
         .pipe(sourcemaps.init())
         .pipe(sass())
-        .pipe(autoprefixer({
-            browsers: ['last 2 versions']
-        }))
+        .pipe(autoprefixer())
         .pipe(gulpResolveUrl())
         .pipe(cssmin())
         .pipe(dest('./css/'));
