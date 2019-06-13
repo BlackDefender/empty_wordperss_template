@@ -202,6 +202,10 @@ function repeaterItemHTML($fields, $metaDataItem, $metaDataItemIndex, $fieldName
                                       <button type='button' class='button remove-file-btn'>Удалить</button>
                                 </div>";
                             break;
+                        case 'checkbox':
+                            $checked = getItemByIndex($metaDataItem, $fieldId) ? 'checked' : '';
+                            echo "<input type='checkbox' value='1' name='{$fieldName}[$metaDataItemIndex][$fieldId]' $checked/>";
+                            break;
 						case 'postsList':
                             $postsList = new WP_Query([
                                 'post_type' => $field['post_type'],

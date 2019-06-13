@@ -148,6 +148,11 @@ $exampleFieldsSet = [
                 'id' => 'any-file',
             ],
             [
+                'label' => 'Checkbox',
+                'type' => 'checkbox',
+                'id' => 'checkbox',
+            ],
+            [
                 'label' => 'Страница',
                 'type' => 'postsList',
                 'id' => 'postsList_field_id',
