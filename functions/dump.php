@@ -6,7 +6,7 @@ function dump($data)
     echo '</pre>';
 }
 
-function dumpToJs($data, $variableName)
+function dumpToJs($data, $variableName = 'data')
 {
     echo '<script> const '.$variableName.'='.json_encode($data).'</script>';
 }
