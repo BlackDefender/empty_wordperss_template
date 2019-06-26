@@ -11,13 +11,11 @@ add_theme_support('menus');
 require_once 'autoload.php';
 require_once 'functions/dump.php';
 require_once 'functions/post-types.php';
-require_once 'functions/meta-fields-engine.php';
 require_once 'functions/additional-settings.php';
 require_once 'functions/translations.php';
 
-// автоматическая перезагрузка страницы при изменениях (работает только на localhost и IP)
-//include_once 'hot-reload/init.php';
-
+require_once 'functions/meta-fields-data.php';
+new MetaFields($meta_boxes);
 
 function enqueue_assets()
 {
