@@ -56,6 +56,7 @@ class Utils
 
     private static function normalizeMetaData($metaData, $showHiddenFields, $postId)
     {
+        global $metaFieldsObj;
         if(!$showHiddenFields){
             $metaData = array_filter($metaData, function ($key) {
                 return mb_substr($key, 0, 1) !== '_';
@@ -66,7 +67,7 @@ class Utils
             return maybe_unserialize($item[0]);
         }, $metaData);
 
-        $pageMetaFields = pageMetaFields(get_post($postId));
+        $pageMetaFields = $metaFieldsObj->getPageMetaFields(get_post($postId));
         $pageMetaFieldsTypes = [];
         foreach ($pageMetaFields as $item){
             if(isset($item['id'])){

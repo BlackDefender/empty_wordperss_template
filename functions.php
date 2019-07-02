@@ -15,7 +15,7 @@ require_once 'functions/additional-settings.php';
 require_once 'functions/translations.php';
 
 require_once 'functions/meta-fields-data.php';
-new MetaFields($meta_boxes);
+$metaFieldsObj = new MetaFields($meta_boxes);
 
 function enqueue_assets()
 {
