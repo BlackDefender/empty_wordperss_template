@@ -3,11 +3,9 @@
 class MetaFields
 {
     private $metaBoxes;
-    private $typograph;
     function __construct($metaBoxes)
     {
         $this->metaBoxes = $metaBoxes;
-        $this->typograph = new Typograph();
         add_action('admin_enqueue_scripts', [$this, 'addMetaFieldsScripts']);
         add_action('add_meta_boxes', [$this, 'addMetaBoxes']);
         add_action('save_post', [$this, 'saveMetaFields']);
