@@ -201,11 +201,24 @@ class Utils
 		return strtr($string, $converter);
 	}
 
-	private static function normalizeTemplateFileName($fileName)
+    private static function normalizeTemplateFileName($fileName)
     {
         if(substr($fileName, -4) !== '.php'){
             $fileName .= '.php';
         }
         return $fileName;
+    }
+
+    public static function removeXMLDeclaration($str)
+    {
+        $startPosition = mb_strpos($str, '<?xml');
+        if($startPosition !== false){
+            $endPosition = mb_strpos($str, '>', $startPosition);
+            if($endPosition !== false){
+                $xmlDeclaration = mb_substr($str, $startPosition, $endPosition - $startPosition+1);
+                $str = str_replace($xmlDeclaration, '', $str);
+            }
+        }
+        return $str;
     }
 }
