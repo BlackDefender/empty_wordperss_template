@@ -148,3 +148,24 @@ const isClickFromKeyboard = mouseClickEvent => {
     }
     return mouseClickEvent.clientX === 0 && mouseClickEvent.clientY === 0;
 };
+
+class StepByStepAnimation{
+    constructor(){
+        this.steps = [];
+    }
+    addStep(cb, timeout){
+        this.steps.push({cb, timeout});
+        return this;
+    }
+    run(){
+        this.steps.reduce((p, step) => {
+                return p.then(() => new Promise(resolve => {
+                    setTimeout(() => {
+                        step.cb();
+                        resolve();
+                    }, step.timeout);
+                }))
+            }
+            , Promise.resolve());
+    }
+}
