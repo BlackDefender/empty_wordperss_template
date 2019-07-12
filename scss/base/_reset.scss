@@ -19,6 +19,7 @@ ul, ol{
 }
 
 input, textarea{
+    font-family: inherit;
     box-shadow: none;
     border-radius: 0;
 }
@@ -32,6 +33,10 @@ textarea{
     @include placeholder{
         opacity: 1;
     }
+}
+
+button{
+    font-family: inherit;
 }
 
 input[type="submit"],
