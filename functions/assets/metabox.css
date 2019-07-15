@@ -219,4 +219,16 @@ input.filename-input{
     margin: 10px auto;
 }
 
+.combo.line li .combo-item-field-wrap .combo-item-field-body .file-input-container{
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 
+.combo.line li .combo-item-field-wrap .combo-item-field-body .file-input-container .add-file-btn{
+    margin: 5px 0 0;
+    width: 70%;
+}
+.combo.line li .combo-item-field-wrap .combo-item-field-body .file-input-container .remove-file-btn{
+    margin: 5px 0 0;
+    width: 28%;
+}
