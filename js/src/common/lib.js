@@ -169,3 +169,57 @@ class StepByStepAnimation{
             , Promise.resolve());
     }
 }
+
+const scrollBlocksAnimation = (() => {
+    let scrollAnimatedBlocks;
+
+    const setupData = () => {
+        scrollAnimatedBlocks = querySelectorAsArray('.animate-on-scroll');
+    };
+
+    const run = () => {
+        let offset = window.innerHeight * 0.8;
+        if(scrollAnimatedBlocks.length === 0) return;
+        scrollAnimatedBlocks.forEach( block => {
+            if(block.classList.contains('animated')) return;
+
+            if(block.dataset.startAnimationOffsetCoefficient){
+                offset = window.innerHeight * block.dataset.startAnimationOffsetCoefficient;
+            }
+            const blockRect = block.getBoundingClientRect();
+            if(blockRect.top < 0 && blockRect.top < -blockRect.height) return;
+            if(blockRect.top - offset < 0){
+                setTimeout(function () {
+                    if(block.dataset.animationCallBack){
+                        window[block.dataset.animationCallBack]();
+                    }else{
+                        if(!block.classList.contains('do-not-add-class-animated')){
+                            block.classList.add('animated');
+                        }
+                        if(block.classList.contains('animate-by-elements')) {
+                            animateElements(block.querySelectorAll('.block-animation-element'), block.dataset.animationDuration);
+                        }
+                    }
+                }, Convert.toIntOrZero(block.dataset.animationDelay));
+            }
+        });
+        scrollAnimatedBlocks = scrollAnimatedBlocks.filter(block => !block.classList.contains('animated') );
+    };
+
+    const refresh = () => {
+        setupData();
+        run();
+    };
+
+    const init = () => {
+        setupData();
+        run();
+        window.addEventListener('scroll', run, scrollEventListenerThirdArgument);
+        window.addEventListener('resize', run);
+    };
+
+    return{
+        init,
+        refresh,
+    }
+})();
