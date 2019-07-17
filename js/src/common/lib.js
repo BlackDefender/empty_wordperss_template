@@ -88,6 +88,29 @@ const isInputValid = input => {
     }
 };
 
+const setupPhoneInputFilter = () => {
+    on('input[type="tel"]', 'keypress', (e) => {
+        const target = e.target;
+
+        if(target.value.length > 17){
+            target.value = target.value.substr(0, 16);
+            return false;
+        }
+
+        if (target.tagName.toUpperCase() === 'INPUT'){
+            const code = e.which;
+            if (code<32 || e.ctrlKey || e.altKey) return true;
+
+            const char = String.fromCharCode(code);
+            if (!phoneInputFilterRegExp().test(char)){
+                e.preventDefault();
+                return false;
+            }
+        }
+        return true;
+    });
+};
+
 const scrollToElement = (element, duration = 1000) => {
     if(typeof element === 'string'){
         element = document.querySelector(element);
