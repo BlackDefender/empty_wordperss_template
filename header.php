@@ -9,6 +9,8 @@ global $contactsData, $templateUri, $homeUrl;
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <title><?= wp_get_document_title(); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
 
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?= $templateUri; ?>/images/favicons/apple-touch-icon-57x57.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?= $templateUri; ?>/images/favicons/apple-touch-icon-114x114.png" />
