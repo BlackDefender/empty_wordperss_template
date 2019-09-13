@@ -46,14 +46,8 @@ const pageScrollState = (() => {
 
 const Convert = {
     nodeListToArray: nodeList => Array.prototype.slice.call(nodeList),
-    toIntOrZero: (val) => {
-        val = parseInt(val);
-        return isNaN(val) ? 0 : val;
-    },
-    toFloatOrZero: (val) => {
-        val = parseFloat(val);
-        return isNaN(val) ? 0 : val;
-    }
+    toIntOrZero: val => parseInt(val) || 0,
+    toFloatOrZero: val => parseFloat(val) || 0
 };
 
 const querySelectorAsArray = selector => Array.prototype.slice.call(document.querySelectorAll(selector));
