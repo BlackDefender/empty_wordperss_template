@@ -14,15 +14,15 @@ const bulkSass = require('gulp-sass-bulk-import');
 
 const enableSourceMaps = ['--sourcemaps', '-s', '--development', '-dev', '-d'].some(item => process.argv.includes(item));
 
-const browserSync = require('browser-sync').create();
-const reload = browserSync.reload;
+//const browserSync = require('browser-sync').create();
+//const reload = browserSync.reload;
 
-const server = () => {
-    browserSync.init({
-        proxy: '10.101.103.15/wordpress_cms/zelinski.ua',
-        files: '**/*.php'
-    });
-};
+//const server = () => {
+//    browserSync.init({
+//        proxy: '10.101.103.15/wordpress_cms/zelinski.ua',
+//        files: '**/*.php'
+//    });
+//};
 
 const styles = () => {
     return src('scss/*.scss')
@@ -74,7 +74,7 @@ const watchTask = () => {
 const defaultTask = () => {
     buildTask();
     watchTask();
-    server();
+//    server();
 };
 
 task(styles);
