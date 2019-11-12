@@ -240,3 +240,12 @@ const scrollBlocksAnimation = (() => {
         refresh,
     }
 })();
+
+const findGetParameter = parameterName => {
+    const items = location.search.substr(1).split("&");
+    for (let index = 0; index < items.length; index++) {
+        const tmp = items[index].split("=");
+        if (tmp[0] === parameterName) return decodeURIComponent(tmp[1]);
+    }
+    return null;
+};
