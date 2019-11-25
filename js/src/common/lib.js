@@ -50,7 +50,7 @@ const Convert = {
     toFloatOrZero: val => parseFloat(val) || 0
 };
 
-const querySelectorAsArray = selector => Array.prototype.slice.call(document.querySelectorAll(selector));
+const querySelectorAsArray = (selector, context = document) => Array.prototype.slice.call(context.querySelectorAll(selector));
 
 const isDesktop = () => window.innerWidth > MOBILE_MAX_WIDTH;
 const isMobile = () => !isDesktop();
