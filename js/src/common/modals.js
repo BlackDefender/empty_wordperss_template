@@ -34,11 +34,9 @@ querySelectorAsArray('.modal').forEach( modal => {
         });
     }
 
-    const modalCloseBtn = modal.querySelector('.close-btn');
-    if(modalCloseBtn){
-        modalCloseBtn.addEventListener('click', () => {
-            closeModal(modal);
-        });
+    const modalCloseBtns = [...modal.querySelectorAll('.close')];
+    if(modalCloseBtns.length > 0){
+        modalCloseBtns.forEach(item => item.addEventListener('click', () => closeModal(modal)));
     }
 
     const modalWindow = modal.querySelector('.window');
