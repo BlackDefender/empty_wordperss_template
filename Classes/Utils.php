@@ -4,9 +4,10 @@ class Utils
 {
     const CSRF_TOKEN_NAME = 'csrf-token';
     
-    public static function clearPhone($phone)
+    public static function clearPhone($phone, $removePlusSign = false)
     {
-        return str_replace(['-', ' ', '(', ')'], '', $phone);
+        $phone = str_replace(['-', ' ', '(', ')'], '', $phone);
+        return $removePlusSign ? str_replace('+', '', $phone) : $phone;
     }
 
     public static function getAssetUrlWithTimestamp($pathFromThemeRoot)
