@@ -249,3 +249,5 @@ const findGetParameter = parameterName => {
     }
     return null;
 };
+
+const numberWithSpaces = num=>num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
