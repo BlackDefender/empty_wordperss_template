@@ -37,6 +37,9 @@ textarea{
 
 button{
     font-family: inherit;
+    &::-moz-focus-inner {
+        border: 0;
+    }
 }
 
 input[type="submit"],
