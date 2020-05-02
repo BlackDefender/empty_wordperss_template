@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded',function() {
 
     var file_frame;
-    var $document = $(document);
+    var $document = jQuery(document);
 
     /* Image */
     $document.on('click', '.add-image', function() {
@@ -27,11 +27,11 @@ document.addEventListener('DOMContentLoaded',function() {
     });
     $document.on('click', '.add-image .remove', function (e) {
         e.stopPropagation();
-        $(this).parent().removeAttr('style').addClass('empty').parent().find('input[type="hidden"]').val('');
+        jQuery(this).parent().removeAttr('style').addClass('empty').parent().find('input[type="hidden"]').val('');
         this.parentElement.querySelector('.image-file-name').textContent = '';
     });
     $document.on('mouseenter', '.add-image', function () {
-        var value = $(this).parent().find('input[type="hidden"]').val();
+        var value = jQuery(this).parent().find('input[type="hidden"]').val();
         if(value === '' && !this.classList.contains('empty')){
             this.classList.add('empty');
         }else{
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded',function() {
 	/* Remove file */
     $document.on('click', '.remove-file-btn', function(e) {
         e.preventDefault();
-        $(this).closest('.file-input-container').find('input').val('');
+        jQuery(this).closest('.file-input-container').find('input').val('');
     });
 
     /* Repeater */
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded',function() {
             var itemIndex = $currentCombo.children('li').length;
             var id = $currentCombo.data('id');
             var template = $currentCombo.closest('td').find('script[type="template"]').text();
-            var $newItem = $(template);
+            var $newItem = jQuery(template);
             $newItem.find('input:not(.no-index), textarea, select').each(function (inputIndex, item) {
                 item.name = id + '[' + itemIndex + '][' + item.dataset.fieldId + ']';
             });
@@ -100,16 +100,16 @@ document.addEventListener('DOMContentLoaded',function() {
             }
         }
 
-        $('.add-combo-item-btn.list').click(function (e) {
+        jQuery('.add-combo-item-btn.list').click(function (e) {
             e.preventDefault();
-            var $currentCombo = $(this).parent().find('.combo');
+            var $currentCombo = jQuery(this).parent().find('.combo');
             var $newCurrentComboItem = getNewJqueryComboItem($currentCombo);
             appendNewItemToComboAnimated($currentCombo, $newCurrentComboItem);
         });
 
-        $('.add-combo-item-btn.gallery').click(function (e) {
+        jQuery('.add-combo-item-btn.gallery').click(function (e) {
             e.preventDefault();
-            var $currentCombo = $(this).parent().find('.combo');
+            var $currentCombo = jQuery(this).parent().find('.combo');
             if (file_frame) file_frame.close();
             file_frame = wp.media({
                 title: 'Добавить изображения',
@@ -137,8 +137,8 @@ document.addEventListener('DOMContentLoaded',function() {
 
         $document.on('click', '.remove-combo-item', function(e) {
             e.preventDefault();
-            $(this).parents('li').animate({ opacity: 0, height: 0, width: 0 }, 300, function() {
-                var $this = $(this);
+            jQuery(this).parents('li').animate({ opacity: 0, height: 0, width: 0 }, 300, function() {
+                var $this = jQuery(this);
                 $this.remove();
                 resetIndex($this.parents('ul')[0]);
             });
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded',function() {
 
     /* функции перетаскивания */
     function makeSortable(list) {
-        $(list).sortable({
+        jQuery(list).sortable({
             opacity: 0.6,
             stop: function() {
                 resetIndex(list);
