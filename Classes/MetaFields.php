@@ -357,7 +357,7 @@ class MetaFields
                     </div>
                     <?php
                     break;
-                case 'posts-list':
+                case 'postsList':
                     $posts_list = new WP_Query(array('post_type' => $field['target_post_type']));
                     if ($posts_list->have_posts()) {
                         echo '<select name="' . $field['id'] . '" class="posts-list">';
