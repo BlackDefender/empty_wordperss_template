@@ -3,13 +3,13 @@ get_header();
 the_post();
 ?>
 <main class="page">
-	<div class="block some-block">
-		<div class="content">
+	<section class="section main-section">
+		<div class="section-content">
             <?php
             the_content();
             ?>
 		</div>
-	</div>
+	</section>
 </main>
 
 <?php get_footer(); ?>

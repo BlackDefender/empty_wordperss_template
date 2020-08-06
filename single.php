@@ -1,14 +1,14 @@
 <?php
 get_header();
 ?>
-<div id="single-post" class="page">
-	<div class="block">
-		<div class="content">
+<main id="single-post" class="page">
+	<section class="section main-section">
+		<div class="section-content">
             <?php
             the_content();
             ?>
 		</div>
-	</div>
-</div>
+	</section>
+</main>
 
 <?php get_footer(); ?>

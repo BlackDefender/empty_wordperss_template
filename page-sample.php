@@ -8,12 +8,12 @@ the_post();
 $metaData = Utils::getNormalizedMetaData($post->ID);
 ?>
 <main id="page-sample" class="page">
-	<div class="block main-block">
-		<div class="content">
+	<section class="section main-section">
+		<div class="section-content">
             <?php
             the_content();
             ?>
 		</div>
-	</div>
+	</section>
 </main>
 <?php get_footer(); ?>

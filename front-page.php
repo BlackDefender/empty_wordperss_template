@@ -7,14 +7,14 @@ get_header();
 $metaData = Utils::getNormalizedMetaData();
 ?>
 <main id="front-page" class="page">
-	<div class="block main-block">
-		<div class="content">
-		
-		<form action="<?= $templateUri; ?>/ajax/sendmail.php" method="post">
-			<?php wp_nonce_field(Utils::getNonceActionName(), 'csrf-token'); ?>
-		</form>
-		
-		</div>
-	</div>
+    <section class="section main-section">
+        <div class="section-content">
+
+            <form action="<?= $templateUri; ?>/ajax/sendmail.php" method="post">
+                <?php wp_nonce_field(Utils::getNonceActionName(), 'csrf-token'); ?>
+            </form>
+
+        </div>
+    </section>
 </main>
 <?php get_footer(); ?>

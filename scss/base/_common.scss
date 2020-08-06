@@ -6,30 +6,32 @@ html.fixed body {
     height: 100%;
 }
 
-body{
+body {
     //font-family: $openSans;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.2;
     color: #0a0a0a;
 }
-.page{
+
+.page {
     position: relative;
     overflow: hidden;
-    .block{
+    .section {
         position: relative;
-        .content{
+        .section-content {
             margin: auto;
         }
     }
 }
 
 .unselectable {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none;   /* Chrome/Safari/Opera */
-  -khtml-user-select: none;    /* Konqueror */
-  -moz-user-select: none;      /* Firefox */
-  -ms-user-select: none;       /* Internet Explorer/Edge */
-  user-select: none;           /* Non-prefixed version, currently
-                                  not supported by any browser */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                           not supported by any browser */
 }
