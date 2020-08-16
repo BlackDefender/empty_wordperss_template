@@ -13,8 +13,11 @@ const uglify = require('gulp-uglify');
 const bulkSass = require('gulp-sass-bulk-import');
 const gulpif = require('gulp-if');
 
-const isProductionMode = process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production';
 const enableSourceMaps = ['--sourcemaps', '-s', '--development', '-dev', '-d'].some(item => process.argv.includes(item));
+const isProductionMode = process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production';
+
+const needToConvert = file => !file._base.includes('vendor') && isProductionMode;
+const needToUglify = file => !file.history[0].includes('.min.js') && isProductionMode;
 
 //const browserSync = require('browser-sync').create();
 //const reload = browserSync.reload;
@@ -49,8 +52,8 @@ const jsCommon = () => {
 
     ], { sourcemaps: true })
         .pipe(concat('bundle.js'))
-        .pipe(gulpif(isProductionMode, babel({ presets: ['@babel/env'] })))
-        .pipe(gulpif(isProductionMode, uglify()))
+        .pipe(gulpif(needToConvert, babel({ presets: ['@babel/env'] })))
+        .pipe(gulpif(needToUglify, uglify()))
         .pipe(dest('js/min', { sourcemaps: enableSourceMaps }))
 };
 
