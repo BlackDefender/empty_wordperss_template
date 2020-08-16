@@ -11,7 +11,9 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 
 const bulkSass = require('gulp-sass-bulk-import');
+const gulpif = require('gulp-if');
 
+const isProductionMode = process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production';
 const enableSourceMaps = ['--sourcemaps', '-s', '--development', '-dev', '-d'].some(item => process.argv.includes(item));
 
 //const browserSync = require('browser-sync').create();
@@ -29,9 +31,9 @@ const styles = () => {
         .pipe(bulkSass())
         .pipe(sourcemaps.init())
         .pipe(sass())
-        .pipe(autoprefixer())
+        .pipe(gulpif(isProductionMode, autoprefixer()))
         .pipe(gulpResolveUrl())
-        .pipe(cssmin())
+        .pipe(gulpif(isProductionMode, cssmin()))
         .pipe(dest('./css/'));
 };
 
@@ -47,19 +49,15 @@ const jsCommon = () => {
 
     ], { sourcemaps: true })
         .pipe(concat('bundle.js'))
-        .pipe(babel({
-            presets: ['@babel/env']
-        }))
-        .pipe(uglify())
+        .pipe(gulpif(isProductionMode, babel({ presets: ['@babel/env'] })))
+        .pipe(gulpif(isProductionMode, uglify()))
         .pipe(dest('js/min', { sourcemaps: enableSourceMaps }))
 };
 
 const jsPages = () => {
     return src('js/src/pages/*.js', { sourcemaps: enableSourceMaps })
-        .pipe(babel({
-            presets: ['@babel/env']
-        }))
-        .pipe(uglify())
+        .pipe(gulpif(isProductionMode, babel({ presets: ['@babel/env'] })))
+        .pipe(gulpif(isProductionMode, uglify()))
         .pipe(dest('js/min', { sourcemaps: enableSourceMaps }))
 };
 
