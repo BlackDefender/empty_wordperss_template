@@ -51,9 +51,9 @@ const jsCommon = () => {
         'js/src/common/modals.js',
 
     ], { sourcemaps: true })
-        .pipe(concat('bundle.js'))
         .pipe(gulpif(needToConvert, babel({ presets: ['@babel/env'] })))
         .pipe(gulpif(needToUglify, uglify()))
+        .pipe(concat('bundle.js'))
         .pipe(dest('js/min', { sourcemaps: enableSourceMaps }))
 };
 
