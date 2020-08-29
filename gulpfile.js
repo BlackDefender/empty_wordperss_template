@@ -10,7 +10,7 @@ const concat = require('gulp-concat');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 
-const bulkSass = require('gulp-sass-bulk-import');
+const bulkSass = require('gulp-sass-bulk-importer');
 const gulpif = require('gulp-if');
 
 const enableSourceMaps = ['--sourcemaps', '-s', '--development', '-dev', '-d'].some(item => process.argv.includes(item));

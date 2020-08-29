@@ -23,7 +23,7 @@
     "gulp-if": "^3.0.0",
     "gulp-resolve-url": "0.0.2",
     "gulp-sass": "^4.1.0",
-    "gulp-sass-bulk-import": "^1.0.1",
+    "gulp-sass-bulk-importer": "^3.0.1",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2"
   },
